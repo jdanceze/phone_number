@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ทำนายเบอร์โดย อาจารย์เจ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: rgb(238,174,202);
+            background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ทำนายเบอร์โดย อาจารย์เจ</h1>
+
+        <form>
+            <div class="form-group">
+                <label for="telephone">โปรดใส่เบอร์โทรศัพท์ของท่าน</label>
+                <input type="tel" class="form-control" id="telephone" name="telephone" pattern="[0-9]{10}" maxlength="10" placeholder="เบอร์โทร 10 หลัก" required>
+                <small class="form-text text-muted">เช่น 0812345678</small>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="checkNumberCount()">ทำนาย</button>
+        </form>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function checkNumberCount() {
+            var telephoneInput = document.getElementById("telephone").value;
+            
+            var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+            for (var i = 0; i < telephoneInput.length; i++) {
+                var number = parseInt(telephoneInput[i]);
+                if (!isNaN(number)) {
+                    counts[number]++;
+                }
+            }
+
+            var maxCount = Math.max(...counts);
+            var maxIndex = counts.indexOf(maxCount);
+
+            var resultElement = document.getElementById("result");
+
+            if (maxIndex == 4) {
+                resultElement.textContent = "เบอร์โคตรห่วย";
+            } else if (maxIndex == 5) {
+                resultElement.textContent = "เบอร์พอใช้ได้หนิหนุ่ม";
+            } else if (maxIndex == 6) {
+                resultElement.textContent = "เบอร์กระจอก";
+            } else if (maxIndex == 7) {
+                resultElement.textContent = "เบอร์สวยครับผมเหมาะสมครับท่าน";
+            } else if (maxIndex == 8) {
+                resultElement.textContent = "เบอร์เจ๊ก";
+            } else if (maxIndex == 9) {
+                resultElement.textContent = "คนใช้เบอร์นี้แม่งโคตรเท่";
+            } else {
+                resultElement.textContent = "เบอร์พวกกระฎุมพี";
+            }
+        }
+    </script>
+</body>
+</html>
